@@ -20,7 +20,7 @@ export default defineConfig({
     ],
     // OpenGraph / Facebook
     ["meta", { property: "og:type", content: "website" }],
-    ["meta", { property: "og:url", content: "https://prism.echolabs.dev" }],
+    ["meta", { property: "og:url", content: "https://prismphp.com" }],
     ["meta", { property: "og:title", content: "Prism" }],
     [
       "meta",
@@ -34,17 +34,14 @@ export default defineConfig({
       "meta",
       {
         property: "og:image",
-        content: "/assets/og-image.png",
+        content: "https://prismphp.com/assets/og-image.png",
       },
     ],
 
     // Twitter
     ["meta", { name: "twitter:card", content: "summary_large_image" }],
     ["meta", { property: "twitter:domain", content: "prism.echolabs.dev" }],
-    [
-      "meta",
-      { property: "twitter:url", content: "https://prism.echolabs.dev" },
-    ],
+    ["meta", { property: "twitter:url", content: "https://prismphp.com" }],
     ["meta", { name: "twitter:title", content: "Prism" }],
     [
       "meta",
@@ -58,7 +55,7 @@ export default defineConfig({
       "meta",
       {
         name: "twitter:image",
-        content: "/assets/og-image.png",
+        content: "https://prismphp.com/assets/og-image.png",
       },
     ],
   ],
@@ -133,15 +130,15 @@ export default defineConfig({
           {
             text: "Input modalities",
             items: [
-                {
-                    text: "Images",
-                    link: "/input-modalities/images",
-                },
-                {
-                    text: "Documents",
-                    link: "/input-modalities/documents",
-                },
-            ]
+              {
+                text: "Images",
+                link: "/input-modalities/images",
+              },
+              {
+                text: "Documents",
+                link: "/input-modalities/documents",
+              },
+            ],
           },
           {
             text: "Providers",
@@ -177,7 +174,7 @@ export default defineConfig({
               {
                 text: "Voyage AI",
                 link: "/providers/voyageai",
-              },              
+              },
               {
                 text: "XAI",
                 link: "/providers/xai",
