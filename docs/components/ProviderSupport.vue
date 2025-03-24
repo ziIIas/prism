@@ -157,11 +157,20 @@ export default {
   name: "CompatibilityMatrix",
   data() {
     return {
-      features: ["Text", "Structured", "Embeddings", "Image", "Tools", "Documents"],
+      features: [
+        "Text",
+        "Streaming",
+        "Structured",
+        "Embeddings",
+        "Image",
+        "Tools",
+        "Documents",
+      ],
       providers: [
         {
           name: "Amazon Bedrock",
           text: Planned,
+          streaming: Unsupported,
           structured: Unsupported,
           embeddings: Planned,
           image: Planned,
@@ -171,6 +180,7 @@ export default {
         {
           name: "Anthropic",
           text: Supported,
+          streaming: Planned,
           structured: Adapted,
           embeddings: Unsupported,
           image: Supported,
@@ -180,6 +190,7 @@ export default {
         {
           name: "Azure OpenAI",
           text: Planned,
+          streaming: Planned,
           structured: Planned,
           embeddings: Planned,
           image: Planned,
@@ -189,6 +200,7 @@ export default {
         {
           name: "DeepSeek",
           text: Supported,
+          streaming: Unsupported,
           structured: Supported,
           embeddings: Unsupported,
           image: Unsupported,
@@ -198,6 +210,7 @@ export default {
         {
           name: "Gemini",
           text: Supported,
+          streaming: Unsupported,
           structured: Supported,
           embeddings: Supported,
           image: Supported,
@@ -207,6 +220,7 @@ export default {
         {
           name: "Groq",
           text: Supported,
+          streaming: Unsupported,
           structured: Supported,
           embeddings: Planned,
           image: Supported,
@@ -216,6 +230,7 @@ export default {
         {
           name: "Mistral",
           text: Supported,
+          streaming: Unsupported,
           structured: Supported,
           embeddings: Supported,
           image: Supported,
@@ -225,6 +240,7 @@ export default {
         {
           name: "Ollama",
           text: Supported,
+          streaming: Supported,
           structured: Supported,
           embeddings: Supported,
           image: Supported,
@@ -234,6 +250,7 @@ export default {
         {
           name: "OpenAI",
           text: Supported,
+          streaming: Supported,
           structured: Supported,
           embeddings: Supported,
           image: Supported,
@@ -243,15 +260,17 @@ export default {
         {
           name: "VoyageAI",
           text: Unsupported,
+          streaming: Unsupported,
           structured: Unsupported,
           embeddings: Supported,
           image: Unsupported,
           tools: Unsupported,
           documents: Unsupported,
-        },       
+        },
         {
           name: "xAI",
           text: Supported,
+          streaming: Unsupported,
           structured: Unsupported,
           embeddings: Unsupported,
           image: Supported,
