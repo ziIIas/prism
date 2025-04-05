@@ -210,7 +210,7 @@ export default {
         {
           name: "Gemini",
           text: Supported,
-          streaming: Unsupported,
+          streaming: Supported,
           structured: Supported,
           embeddings: Supported,
           image: Supported,
