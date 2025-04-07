@@ -199,11 +199,11 @@ export default defineConfig({
             ],
           },
           {
-            text: "Project Info",
+            text: "Packages",
             items: [
               {
-                text: "Roadmap",
-                link: "/project-info/roadmap",
+                text: "Relay",
+                link: "https://github.com/prism-php/relay",
               },
             ],
           },
