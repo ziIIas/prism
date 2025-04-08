@@ -98,7 +98,7 @@ export default defineConfig({
                 link: "/core-concepts/text-generation",
               },
               {
-                text: "Streaming Ouput",
+                text: "Streaming Output",
                 link: "/core-concepts/streaming-output",
               },
               {
