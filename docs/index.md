@@ -8,11 +8,11 @@ hero:
   tagline: "Prism is a powerful Laravel package for integrating Large Language Models (LLMs) into your applications."
   actions:
     - theme: brand
-      text: Docs
+      text: Get Started
       link: /getting-started/introduction
     - theme: alt
-      text: Roadmap
-      link: /project-info/roadmap
+      text: Sponsor
+      link: https://github.com/sponsors/sixlive
     - theme: alt
       text: Github
       link: https://github.com/prism-php/prism
