@@ -259,3 +259,7 @@ div[class*="language-"] {
 .VPNav .divider {
   display: none !important;
 }
+
+.VPLocalNav {
+  border-bottom: none !important;
+}
