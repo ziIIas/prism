@@ -205,6 +205,10 @@ export default defineConfig({
                 text: "Relay",
                 link: "https://github.com/prism-php/relay",
               },
+              {
+                text: "Bedrock",
+                link: "https://github.com/prism-php/bedrock",
+              },
             ],
           },
         ],
