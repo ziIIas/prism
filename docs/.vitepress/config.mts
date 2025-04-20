@@ -148,6 +148,10 @@ export default defineConfig({
                 link: "/providers/anthropic",
               },
               {
+                text: "Bedrock",
+                link: "https://github.co/prism-php/bedrock",
+              },
+              {
                 text: "DeepSeek",
                 link: "/providers/deepseek",
               },
