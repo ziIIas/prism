@@ -149,7 +149,7 @@ export default defineConfig({
               },
               {
                 text: "Bedrock",
-                link: "https://github.co/prism-php/bedrock",
+                link: "https://github.com/prism-php/bedrock",
               },
               {
                 text: "DeepSeek",
