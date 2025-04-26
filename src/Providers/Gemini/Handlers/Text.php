@@ -9,7 +9,6 @@ use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Http\Client\Response as ClientResponse;
 use Prism\Prism\Concerns\CallsTools;
 use Prism\Prism\Enums\FinishReason;
-use Prism\Prism\Enums\Provider;
 use Prism\Prism\Exceptions\PrismException;
 use Prism\Prism\Providers\Gemini\Concerns\ExtractSearchGroundings;
 use Prism\Prism\Providers\Gemini\Concerns\ValidatesResponse;
@@ -76,7 +75,7 @@ class Text
     protected function sendRequest(Request $request): ClientResponse
     {
         try {
-            $providerMeta = $request->providerMeta(Provider::Gemini);
+            $providerOptions = $request->providerOptions();
 
             $generationConfig = array_filter([
                 'temperature' => $request->temperature(),
@@ -84,11 +83,11 @@ class Text
                 'maxOutputTokens' => $request->maxTokens(),
             ]);
 
-            if ($request->tools() !== [] && ($providerMeta['searchGrounding'] ?? false)) {
+            if ($request->tools() !== [] && ($providerOptions['searchGrounding'] ?? false)) {
                 throw new Exception('Use of search grounding with custom tools is not currently supported by Prism.');
             }
 
-            $tools = $providerMeta['searchGrounding'] ?? false
+            $tools = $providerOptions['searchGrounding'] ?? false
                 ? [
                     [
                         'google_search' => (object) [],
@@ -100,11 +99,11 @@ class Text
                 "{$request->model()}:generateContent",
                 array_filter([
                     ...(new MessageMap($request->messages(), $request->systemPrompts()))(),
-                    'cachedContent' => $providerMeta['cachedContentName'] ?? null,
+                    'cachedContent' => $providerOptions['cachedContentName'] ?? null,
                     'generationConfig' => $generationConfig !== [] ? $generationConfig : null,
                     'tools' => $tools !== [] ? $tools : null,
                     'tool_config' => $request->toolChoice() ? ToolChoiceMap::map($request->toolChoice()) : null,
-                    'safetySettings' => $providerMeta['safetySettings'] ?? null,
+                    'safetySettings' => $providerOptions['safetySettings'] ?? null,
                 ])
             );
         } catch (Throwable $e) {
@@ -154,7 +153,7 @@ class Text
      */
     protected function addStep(array $data, Request $request, FinishReason $finishReason, array $toolResults = []): void
     {
-        $providerMeta = $request->providerMeta(Provider::Gemini);
+        $providerOptions = $request->providerOptions();
 
         $this->responseBuilder->addStep(new Step(
             text: data_get($data, 'candidates.0.content.parts.0.text') ?? '',
@@ -162,7 +161,7 @@ class Text
             toolCalls: $finishReason === FinishReason::ToolCalls ? ToolCallMap::map(data_get($data, 'candidates.0.content.parts', [])) : [],
             toolResults: $toolResults,
             usage: new Usage(
-                promptTokens: isset($providerMeta['cachedContentName'])
+                promptTokens: isset($providerOptions['cachedContentName'])
                     ? (data_get($data, 'usageMetadata.promptTokenCount', 0) - data_get($data, 'usageMetadata.cachedContentTokenCount', 0))
                     : data_get($data, 'usageMetadata.promptTokenCount', 0),
                 completionTokens: data_get($data, 'usageMetadata.candidatesTokenCount', 0),

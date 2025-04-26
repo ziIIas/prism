@@ -10,7 +10,6 @@ use Illuminate\Http\Client\Response;
 use Illuminate\Support\Str;
 use Prism\Prism\Concerns\CallsTools;
 use Prism\Prism\Enums\FinishReason;
-use Prism\Prism\Enums\Provider;
 use Prism\Prism\Exceptions\PrismChunkDecodeException;
 use Prism\Prism\Exceptions\PrismException;
 use Prism\Prism\Providers\Gemini\Maps\FinishReasonMap;
@@ -216,14 +215,14 @@ class Stream
     protected function sendRequest(Request $request): Response
     {
         try {
-            $providerMeta = $request->providerMeta(Provider::Gemini);
+            $providerOptions = $request->providerOptions();
 
-            if ($request->tools() !== [] && ($providerMeta['searchGrounding'] ?? false)) {
+            if ($request->tools() !== [] && ($providerOptions['searchGrounding'] ?? false)) {
                 throw new PrismException('Use of search grounding with custom tools is not currently supported by Prism.');
             }
 
             $tools = match (true) {
-                $providerMeta['searchGrounding'] ?? false => [
+                $providerOptions['searchGrounding'] ?? false => [
                     [
                         'google_search' => (object) [],
                     ],
@@ -238,7 +237,7 @@ class Stream
                     "{$request->model()}:streamGenerateContent?alt=sse",
                     array_filter([
                         ...(new MessageMap($request->messages(), $request->systemPrompts()))(),
-                        'cachedContent' => $providerMeta['cachedContentName'] ?? null,
+                        'cachedContent' => $providerOptions['cachedContentName'] ?? null,
                         'generationConfig' => array_filter([
                             'temperature' => $request->temperature(),
                             'topP' => $request->topP(),
@@ -246,7 +245,7 @@ class Stream
                         ]),
                         'tools' => $tools !== [] ? $tools : null,
                         'tool_config' => $request->toolChoice() ? ToolChoiceMap::map($request->toolChoice()) : null,
-                        'safetySettings' => $providerMeta['safetySettings'] ?? null,
+                        'safetySettings' => $providerOptions['safetySettings'] ?? null,
                     ])
                 );
         } catch (Throwable $e) {

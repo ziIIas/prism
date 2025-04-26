@@ -6,7 +6,6 @@ use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Http\Client\Response;
 use Prism\Prism\Embeddings\Request as EmbeddingsRequest;
 use Prism\Prism\Embeddings\Response as EmbeddingsResponse;
-use Prism\Prism\Enums\Provider;
 use Prism\Prism\Exceptions\PrismException;
 use Prism\Prism\Exceptions\PrismRateLimitedException;
 use Prism\Prism\ValueObjects\Embedding;
@@ -45,14 +44,14 @@ class Embeddings
 
     protected function sendRequest(): void
     {
-        $providerMeta = $this->request->providerMeta(Provider::VoyageAI);
+        $providerOptions = $this->request->providerOptions();
 
         try {
             $this->httpResponse = $this->client->post('embeddings', array_filter([
                 'model' => $this->request->model(),
                 'input' => $this->request->inputs(),
-                'input_type' => $providerMeta['inputType'] ?? null,
-                'truncation' => $providerMeta['truncation'] ?? null,
+                'input_type' => $providerOptions['inputType'] ?? null,
+                'truncation' => $providerOptions['truncation'] ?? null,
             ]));
         } catch (\Exception $e) {
             throw PrismException::providerRequestError($this->request->model(), $e);

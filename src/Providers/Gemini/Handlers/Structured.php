@@ -3,7 +3,6 @@
 namespace Prism\Prism\Providers\Gemini\Handlers;
 
 use Illuminate\Http\Client\PendingRequest;
-use Prism\Prism\Enums\Provider;
 use Prism\Prism\Exceptions\PrismException;
 use Prism\Prism\Providers\Gemini\Concerns\ValidatesResponse;
 use Prism\Prism\Providers\Gemini\Maps\FinishReasonMap;
@@ -52,13 +51,13 @@ class Structured
     public function sendRequest(Request $request): array
     {
         try {
-            $providerMeta = $request->providerMeta(Provider::Gemini);
+            $providerOptions = $request->providerOptions();
 
             $response = $this->client->post(
                 "{$request->model()}:generateContent",
                 array_filter([
                     ...(new MessageMap($request->messages(), $request->systemPrompts()))(),
-                    'cachedContent' => $providerMeta['cachedContentName'] ?? null,
+                    'cachedContent' => $providerOptions['cachedContentName'] ?? null,
                     'generationConfig' => array_filter([
                         'response_mime_type' => 'application/json',
                         'response_schema' => (new SchemaMap($request->schema()))->toArray(),
@@ -66,7 +65,7 @@ class Structured
                         'topP' => $request->topP(),
                         'maxOutputTokens' => $request->maxTokens(),
                     ]),
-                    'safetySettings' => $providerMeta['safetySettings'] ?? null,
+                    'safetySettings' => $providerOptions['safetySettings'] ?? null,
                 ])
             );
 
