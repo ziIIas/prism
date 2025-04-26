@@ -40,8 +40,8 @@ $response = Prism::text()
         Provider::Anthropic,
         fn ($request) => $request
             ->withMaxTokens(4000)
+            ->withProviderOptions(['cacheType' => 'ephemeral'])
     )
-->withProviderOptions(['cacheType' => 'ephemeral'])
     ->whenProvider(
         Provider::OpenAI,
         fn ($request) => $request
