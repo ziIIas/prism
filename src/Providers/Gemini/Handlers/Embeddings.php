@@ -55,16 +55,21 @@ class Embeddings
 
     protected function sendRequest(Request $request): Response
     {
+        $providerOptions = $request->providerOptions();
+
         return $this->client->post(
             "{$request->model()}:embedContent",
-            [
+            array_filter([
                 'model' => $request->model(),
                 'content' => [
                     'parts' => [
                         ['text' => $request->inputs()[0]],
                     ],
                 ],
-            ]
+                'title' => $providerOptions['title'] ?? null,
+                'taskType' => $providerOptions['taskType'] ?? null,
+                'outputDimensionality' => $providerOptions['outputDimensionality'] ?? null,
+            ])
         );
     }
 }
