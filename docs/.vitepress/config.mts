@@ -114,10 +114,6 @@ export default defineConfig({
                 link: "/core-concepts/embeddings",
               },
               {
-                text: "Provider Interoperability",
-                link: "/core-concepts/provider-interoperability",
-              },
-              {
                 text: "Schemas",
                 link: "/core-concepts/schemas",
               },
@@ -204,6 +200,10 @@ export default defineConfig({
                 text: "Handling Rate Limits",
                 link: "/advanced/rate-limits",
               },
+              {
+                text: "Provider Interoperability",
+                link: "/core-concepts/provider-interoperability",
+              },
             ],
           },
           {
@@ -224,7 +224,7 @@ export default defineConfig({
     ],
 
     search: {
-      provider: 'local',
+      provider: "local",
     },
 
     socialLinks: [
