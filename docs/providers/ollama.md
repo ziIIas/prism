@@ -6,6 +6,25 @@
     'url' => env('OLLAMA_URL', 'http://localhost:11434/v1'),
 ],
 ```
+
+## Ollama Options
+
+Ollama allows you to customize how the model is run via [options](https://github.com/ollama/ollama/blob/main/docs/modelfile.md#parameter). These options can be passed via the `->withProviderOptions()` method.
+
+```php
+Prism::text() // [!code focus]
+  ->using(Provider::Ollama, 'gemma3:1b')
+  ->withPrompt('Who are you?')
+  ->withClientOptions(['timeout' => 60])
+  ->withProviderOptions([ // [!code focus]
+      'top_p' => 0.9, // [!code focus]
+      'num_ctx' => 4096, // [!code focus]
+  ]) // [!code focus]
+```
+
+> [!NOTE]
+> Using `withProviderOptions` will override settings like `topP` and `temperature`
+
 ## Considerations
 ### Timeouts
 
