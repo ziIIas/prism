@@ -452,7 +452,7 @@ describe('Thinking Mode for Gemini', function (): void {
 
         expect($response->usage->thoughtTokens)->toBe(1209);
 
-        Http::assertSent(function (Request $request) {
+        Http::assertSent(function (Request $request): true {
             $data = $request->data();
 
             expect($data['generationConfig'])->not->toHaveKey('thinkingConfig');
@@ -473,7 +473,7 @@ describe('Thinking Mode for Gemini', function (): void {
 
         expect($response->usage->thoughtTokens)->toBeNull();
 
-        Http::assertSent(function (Request $request) {
+        Http::assertSent(function (Request $request): true {
             $data = $request->data();
 
             expect($data['generationConfig'])->toHaveKey('thinkingConfig')
