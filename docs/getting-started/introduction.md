@@ -16,7 +16,7 @@ use Prism\Prism\Prism;
 use Prism\Prism\Enums\Provider;
 
 $response = Prism::text()
-    ->using(Provider::Anthropic, 'claude-3-sonnet')
+    ->using(Provider::Anthropic, 'claude-3-7-sonnet-latest')
     ->withSystemPrompt(view('prompts.system'))
     ->withPrompt('Explain quantum computing to a 5-year-old.')
     ->asText();
