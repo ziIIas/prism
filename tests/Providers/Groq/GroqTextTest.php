@@ -156,7 +156,7 @@ describe('Image support with grok', function (): void {
                 new UserMessage(
                     'What is this image',
                     additionalContent: [
-                        Image::fromPath('tests/Fixtures/test-image.png'),
+                        Image::fromPath('tests/Fixtures/dimond.png'),
                     ],
                 ),
             ])
@@ -172,7 +172,7 @@ describe('Image support with grok', function (): void {
 
             expect($message[1]['image_url']['url'])->toStartWith('data:image/png;base64,');
             expect($message[1]['image_url']['url'])->toContain(
-                base64_encode(file_get_contents('tests/Fixtures/test-image.png'))
+                base64_encode(file_get_contents('tests/Fixtures/dimond.png'))
             );
 
             return true;
@@ -189,7 +189,7 @@ describe('Image support with grok', function (): void {
                     'What is this image',
                     additionalContent: [
                         Image::fromBase64(
-                            base64_encode(file_get_contents('tests/Fixtures/test-image.png')),
+                            base64_encode(file_get_contents('tests/Fixtures/dimond.png')),
                             'image/png'
                         ),
                     ],
@@ -207,7 +207,7 @@ describe('Image support with grok', function (): void {
 
             expect($message[1]['image_url']['url'])->toStartWith('data:image/png;base64,');
             expect($message[1]['image_url']['url'])->toContain(
-                base64_encode(file_get_contents('tests/Fixtures/test-image.png'))
+                base64_encode(file_get_contents('tests/Fixtures/dimond.png'))
             );
 
             return true;
@@ -217,7 +217,7 @@ describe('Image support with grok', function (): void {
     it('can send images from url', function (): void {
         FixtureResponse::fakeResponseSequence('v1/chat/completions', 'groq/text-image-from-url');
 
-        $image = 'https://storage.echolabs.dev/api/v1/buckets/public/objects/download?preview=true&prefix=test-image.png';
+        $image = 'https://prismphp.com/storage/dimond.png';
 
         Prism::text()
             ->using(Provider::Groq, 'llama-3.2-90b-vision-preview')

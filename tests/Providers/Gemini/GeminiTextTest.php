@@ -145,7 +145,7 @@ describe('Image support with Gemini', function (): void {
                 new UserMessage(
                     'What is this image',
                     additionalContent: [
-                        Image::fromPath('tests/Fixtures/test-image.png'),
+                        Image::fromPath('tests/Fixtures/dimond.png'),
                     ],
                 ),
             ])
@@ -170,7 +170,7 @@ describe('Image support with Gemini', function (): void {
             expect($message[1]['inline_data'])->toHaveKeys(['mime_type', 'data']);
             expect($message[1]['inline_data']['mime_type'])->toBe('image/png');
             expect($message[1]['inline_data']['data'])->toBe(
-                base64_encode(file_get_contents('tests/Fixtures/test-image.png'))
+                base64_encode(file_get_contents('tests/Fixtures/dimond.png'))
             );
 
             return true;
@@ -187,7 +187,7 @@ describe('Image support with Gemini', function (): void {
                     'What is this image',
                     additionalContent: [
                         Image::fromBase64(
-                            base64_encode(file_get_contents('tests/Fixtures/test-image.png')),
+                            base64_encode(file_get_contents('tests/Fixtures/dimond.png')),
                             'image/png'
                         ),
                     ],
@@ -205,7 +205,7 @@ describe('Image support with Gemini', function (): void {
             expect($message[1]['inline_data'])->toHaveKeys(['mime_type', 'data']);
             expect($message[1]['inline_data']['mime_type'])->toBe('image/png');
             expect($message[1]['inline_data']['data'])->toBe(
-                base64_encode(file_get_contents('tests/Fixtures/test-image.png'))
+                base64_encode(file_get_contents('tests/Fixtures/dimond.png'))
             );
 
             return true;
@@ -215,7 +215,7 @@ describe('Image support with Gemini', function (): void {
     it('can send images from url', function (): void {
         FixtureResponse::fakeResponseSequence('*', 'gemini/image-detection');
 
-        $image = 'https://storage.echolabs.dev/api/v1/buckets/public/objects/download?preview=true&prefix=test-image.png';
+        $image = 'https://prismphp.com/storage/dimond.png';
 
         $response = Prism::text()
             ->using(Provider::Gemini, 'gemini-1.5-flash')

@@ -35,7 +35,7 @@ it('maps user messages with images from path', function (): void {
     $messageMap = new MessageMap(
         messages: [
             new UserMessage('Who are you?', [
-                Image::fromPath('tests/Fixtures/test-image.png'),
+                Image::fromPath('tests/Fixtures/dimond.png'),
             ]),
         ],
         systemPrompts: []
@@ -48,14 +48,14 @@ it('maps user messages with images from path', function (): void {
     expect(data_get($mappedMessage, '0.content.1.image_url.url'))
         ->toStartWith('data:image/png;base64,');
     expect(data_get($mappedMessage, '0.content.1.image_url.url'))
-        ->toContain(base64_encode(file_get_contents('tests/Fixtures/test-image.png')));
+        ->toContain(base64_encode(file_get_contents('tests/Fixtures/dimond.png')));
 });
 
 it('maps user messages with images from base64', function (): void {
     $messageMap = new MessageMap(
         messages: [
             new UserMessage('Who are you?', [
-                Image::fromBase64(base64_encode(file_get_contents('tests/Fixtures/test-image.png')), 'image/png'),
+                Image::fromBase64(base64_encode(file_get_contents('tests/Fixtures/dimond.png')), 'image/png'),
             ]),
         ],
         systemPrompts: []
@@ -68,14 +68,14 @@ it('maps user messages with images from base64', function (): void {
     expect(data_get($mappedMessage, '0.content.1.image_url.url'))
         ->toStartWith('data:image/png;base64,');
     expect(data_get($mappedMessage, '0.content.1.image_url.url'))
-        ->toContain(base64_encode(file_get_contents('tests/Fixtures/test-image.png')));
+        ->toContain(base64_encode(file_get_contents('tests/Fixtures/dimond.png')));
 });
 
 it('maps user messages with images from url', function (): void {
     $messageMap = new MessageMap(
         messages: [
             new UserMessage('Who are you?', [
-                Image::fromUrl('https://storage.echolabs.dev/assets/logo.png'),
+                Image::fromUrl('https://prismphp.com/storage/dimond.png'),
             ]),
         ],
         systemPrompts: []
@@ -86,7 +86,7 @@ it('maps user messages with images from url', function (): void {
     expect(data_get($mappedMessage, '0.content.1.type'))
         ->toBe('image_url');
     expect(data_get($mappedMessage, '0.content.1.image_url.url'))
-        ->toBe('https://storage.echolabs.dev/assets/logo.png');
+        ->toBe('https://prismphp.com/storage/dimond.png');
 });
 
 it('maps assistant message', function (): void {

@@ -140,7 +140,7 @@ describe('Image support', function (): void {
                 new UserMessage(
                     'What is this image',
                     additionalContent: [
-                        Image::fromPath('tests/Fixtures/test-image.png'),
+                        Image::fromPath('tests/Fixtures/dimond.png'),
                     ],
                 ),
             ])
@@ -156,7 +156,7 @@ describe('Image support', function (): void {
 
             expect($message[1]['image_url']['url'])->toStartWith('data:image/png;base64,');
             expect($message[1]['image_url']['url'])->toContain(
-                base64_encode(file_get_contents('tests/Fixtures/test-image.png'))
+                base64_encode(file_get_contents('tests/Fixtures/dimond.png'))
             );
 
             return true;
@@ -173,7 +173,7 @@ describe('Image support', function (): void {
                     'What is this image',
                     additionalContent: [
                         Image::fromBase64(
-                            base64_encode(file_get_contents('tests/Fixtures/test-image.png')),
+                            base64_encode(file_get_contents('tests/Fixtures/dimond.png')),
                             'image/png'
                         ),
                     ],
@@ -191,7 +191,7 @@ describe('Image support', function (): void {
 
             expect($message[1]['image_url']['url'])->toStartWith('data:image/png;base64,');
             expect($message[1]['image_url']['url'])->toContain(
-                base64_encode(file_get_contents('tests/Fixtures/test-image.png'))
+                base64_encode(file_get_contents('tests/Fixtures/dimond.png'))
             );
 
             return true;
@@ -201,7 +201,7 @@ describe('Image support', function (): void {
     it('can send images from url', function (): void {
         FixtureResponse::fakeResponseSequence('v1/chat/completions', 'mistral/text-image-from-url');
 
-        $image = 'https://storage.echolabs.dev/api/v1/buckets/public/objects/download?preview=true&prefix=test-image.png';
+        $image = 'https://prismphp.com/storage/dimond.png';
 
         Prism::text()
             ->using(Provider::Mistral, 'pixtral-12b-2409')
@@ -235,7 +235,7 @@ describe('Document support', function (): void {
         FixtureResponse::fakeResponseSequence('v1/chat/completions', 'mistral/text-document-from-url');
 
         // TODO update this to a more long lasting document
-        $document = 'https://storage.echolabs.dev/api/v1/buckets/public/objects/download?preview=true&prefix=prism-text-generation.pdf';
+        $document = 'https://prismphp.com/storage/prism-text-generation.pdf';
 
         Prism::text()
             ->using(Provider::Mistral, 'mistral-small-2402')

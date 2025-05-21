@@ -130,7 +130,7 @@ describe('Image support', function (): void {
                 new UserMessage(
                     'What is this image',
                     additionalContent: [
-                        Image::fromPath('tests/Fixtures/test-image.png'),
+                        Image::fromPath('tests/Fixtures/dimond.png'),
                     ],
                 ),
             ])
@@ -143,7 +143,7 @@ describe('Image support', function (): void {
             expect($message['content'])->toBe('What is this image');
 
             expect($message['images'][0])->toContain(
-                base64_encode(file_get_contents('tests/Fixtures/test-image.png'))
+                base64_encode(file_get_contents('tests/Fixtures/dimond.png'))
             );
 
             return true;
@@ -160,7 +160,7 @@ describe('Image support', function (): void {
                     'What is this image',
                     additionalContent: [
                         Image::fromBase64(
-                            base64_encode(file_get_contents('tests/Fixtures/test-image.png')),
+                            base64_encode(file_get_contents('tests/Fixtures/dimond.png')),
                             'image/png'
                         ),
                     ],
@@ -175,7 +175,7 @@ describe('Image support', function (): void {
             expect($message['content'])->toBe('What is this image');
 
             expect($message['images'][0])->toContain(
-                base64_encode(file_get_contents('tests/Fixtures/test-image.png'))
+                base64_encode(file_get_contents('tests/Fixtures/dimond.png'))
             );
 
             return true;

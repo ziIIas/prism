@@ -32,7 +32,7 @@ $provider = Prism::provider(\Prism\Prism\Enums\Provider::Mistral);
 /** @var OCRResponse $ocrResponse */
 $ocrResponse = $provider->ocr(
     'mistral-ocr-latest',
-    Document::fromUrl('https://storage.echolabs.dev/api/v1/buckets/public/objects/download?preview=true&prefix=prism-text-generation.pdf')
+    Document::fromUrl('https://prismphp.com/storage/prism-text-generation.pdf')
 );
 
 /**

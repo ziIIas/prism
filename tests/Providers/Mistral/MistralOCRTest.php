@@ -26,7 +26,7 @@ it('can read a basic pdf', function (): void {
         ->ocr(
             model: 'mistral-ocr-latest',
             document: Document::fromUrl(
-                url: 'https://storage.echolabs.dev/api/v1/buckets/public/objects/download?preview=true&prefix=prism-text-generation.pdf'
+                url: 'https://prismphp.com/storage/prism-text-generation.pdf'
             ),
         );
 
@@ -63,7 +63,7 @@ it('can combine all pages of the document to one single string', function (): vo
         ->ocr(
             model: 'mistral-ocr-latest',
             document: Document::fromUrl(
-                url: 'https://storage.echolabs.dev/api/v1/buckets/public/objects/download?preview=true&prefix=prism-text-generation.pdf'
+                url: 'https://prismphp.com/storage/prism-text-generation.pdf'
             ),
         );
 

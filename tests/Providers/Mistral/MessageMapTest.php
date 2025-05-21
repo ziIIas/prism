@@ -33,7 +33,7 @@ it('maps user messages with images', function (): void {
     $messageMap = new MessageMap(
         messages: [
             new UserMessage('Who are you?', [
-                Image::fromPath('tests/Fixtures/test-image.png'),
+                Image::fromPath('tests/Fixtures/dimond.png'),
             ]),
         ],
         systemPrompts: []
@@ -46,7 +46,7 @@ it('maps user messages with images', function (): void {
     expect(data_get($mappedMessage, '0.content.1.image_url.url'))
         ->toStartWith('data:image/png;base64,');
     expect(data_get($mappedMessage, '0.content.1.image_url.url'))
-        ->toContain(Image::fromPath('tests/Fixtures/test-image.png')->image);
+        ->toContain(Image::fromPath('tests/Fixtures/dimond.png')->image);
 });
 
 it('maps assistant message', function (): void {

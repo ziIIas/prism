@@ -33,7 +33,7 @@ describe('Anthropic user message mapping', function (): void {
     it('maps user messages with images from path', function (): void {
         $mappedMessage = MessageMap::map([
             new UserMessage('Who are you?', [
-                Image::fromPath('tests/Fixtures/test-image.png'),
+                Image::fromPath('tests/Fixtures/dimond.png'),
             ]),
         ]);
 
@@ -42,7 +42,7 @@ describe('Anthropic user message mapping', function (): void {
         expect(data_get($mappedMessage, '0.content.1.source.type'))
             ->toBe('base64');
         expect(data_get($mappedMessage, '0.content.1.source.data'))
-            ->toContain(base64_encode(file_get_contents('tests/Fixtures/test-image.png')));
+            ->toContain(base64_encode(file_get_contents('tests/Fixtures/dimond.png')));
         expect(data_get($mappedMessage, '0.content.1.source.media_type'))
             ->toBe('image/png');
     });
@@ -50,7 +50,7 @@ describe('Anthropic user message mapping', function (): void {
     it('maps user messages with images from base64', function (): void {
         $mappedMessage = MessageMap::map([
             new UserMessage('Who are you?', [
-                Image::fromBase64(base64_encode(file_get_contents('tests/Fixtures/test-image.png')), 'image/png'),
+                Image::fromBase64(base64_encode(file_get_contents('tests/Fixtures/dimond.png')), 'image/png'),
             ]),
         ]);
 
@@ -59,7 +59,7 @@ describe('Anthropic user message mapping', function (): void {
         expect(data_get($mappedMessage, '0.content.1.source.type'))
             ->toBe('base64');
         expect(data_get($mappedMessage, '0.content.1.source.data'))
-            ->toContain(base64_encode(file_get_contents('tests/Fixtures/test-image.png')));
+            ->toContain(base64_encode(file_get_contents('tests/Fixtures/dimond.png')));
         expect(data_get($mappedMessage, '0.content.1.source.media_type'))
             ->toBe('image/png');
     });
@@ -68,7 +68,7 @@ describe('Anthropic user message mapping', function (): void {
         $this->expectException(InvalidArgumentException::class);
         MessageMap::map([
             new UserMessage('Who are you?', [
-                Image::fromUrl('https://storage.echolabs.dev/assets/logo.png'),
+                Image::fromUrl('https://prismphp.com/storage/dimond.png'),
             ]),
         ]);
     });
@@ -299,7 +299,7 @@ describe('Anthropic cache mapping', function (): void {
         expect(MessageMap::map([
             (new UserMessage(
                 content: 'Who are you?',
-                additionalContent: [Image::fromPath('tests/Fixtures/test-image.png')]
+                additionalContent: [Image::fromPath('tests/Fixtures/dimond.png')]
             ))->withProviderOptions(['cacheType' => 'ephemeral']),
         ]))->toBe([[
             'role' => 'user',
@@ -314,7 +314,7 @@ describe('Anthropic cache mapping', function (): void {
                     'source' => [
                         'type' => 'base64',
                         'media_type' => 'image/png',
-                        'data' => base64_encode(file_get_contents('tests/Fixtures/test-image.png')),
+                        'data' => base64_encode(file_get_contents('tests/Fixtures/dimond.png')),
                     ],
                     'cache_control' => ['type' => 'ephemeral'],
                 ],
