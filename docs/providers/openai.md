@@ -35,6 +35,17 @@ $response = Prism::structured()
     ]) // [!code focus]
 ```
 
+### Metadata
+
+```php
+$response = Prism::structured()
+    ->withProviderOptions([ // [!code focus]
+        'meta' => [ // [!code focus]
+            'project_id' => 23 // [!code focus]
+        ] // [!code focus]
+    ]) // [!code focus]
+```
+
 ## Limitations
 ### Tool Choice
 
