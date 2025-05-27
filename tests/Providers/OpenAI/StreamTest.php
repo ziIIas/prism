@@ -161,7 +161,7 @@ it('can accept falsy parameters', function (): void {
     $modelTool = Tool::as('get_models')
         ->for('Returns info about of available models')
         ->withNumberParameter('modelId', 'Id of the model to load. Returns all models if null', false)
-        ->using(fn(int $modelId): string => "The model {$modelId} is the funniest of all");
+        ->using(fn (int $modelId): string => "The model {$modelId} is the funniest of all");
 
     $response = Prism::text()
         ->using('openai', 'gpt-4')
@@ -171,10 +171,7 @@ it('can accept falsy parameters', function (): void {
         ->asStream();
 
     foreach ($response as $chunk) {
-        echo $chunk->text;
         ob_flush();
         flush();
     }
-
-    // No assertion: test passes if no exceptions are thrown.
 })->throwsNoExceptions();
