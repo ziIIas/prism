@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Prism\Prism\Text;
 
 use Generator;
+use Illuminate\Http\Client\RequestException;
 use Prism\Prism\Concerns\ConfiguresClient;
 use Prism\Prism\Concerns\ConfiguresGeneration;
 use Prism\Prism\Concerns\ConfiguresModels;
@@ -17,7 +18,6 @@ use Prism\Prism\Concerns\HasProviderTools;
 use Prism\Prism\Concerns\HasTools;
 use Prism\Prism\Exceptions\PrismException;
 use Prism\Prism\ValueObjects\Messages\UserMessage;
-use Throwable;
 
 class PendingRequest
 {
@@ -46,8 +46,8 @@ class PendingRequest
 
         try {
             return $this->provider->text($request);
-        } catch (Throwable $e) {
-            $this->provider->handleRequestExceptions($request->model(), $e);
+        } catch (RequestException $e) {
+            $this->provider->handleRequestException($request->model(), $e);
         }
     }
 
@@ -64,8 +64,8 @@ class PendingRequest
             foreach ($chunks as $chunk) {
                 yield $chunk;
             }
-        } catch (Throwable $e) {
-            $this->provider->handleRequestExceptions($request->model(), $e);
+        } catch (RequestException $e) {
+            $this->provider->handleRequestException($request->model(), $e);
         }
     }
 
