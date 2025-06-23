@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Tests\TestDoubles;
 
 use Generator;
-use Prism\Prism\Contracts\Provider;
 use Prism\Prism\Embeddings\Request as EmbeddingRequest;
 use Prism\Prism\Embeddings\Response as EmbeddingResponse;
 use Prism\Prism\Enums\FinishReason;
 use Prism\Prism\Exceptions\PrismException;
 use Prism\Prism\Images\Request as ImageRequest;
 use Prism\Prism\Images\Response as ImageResponse;
+use Prism\Prism\Providers\Provider;
 use Prism\Prism\Structured\Request as StructuredRequest;
 use Prism\Prism\Structured\Response as StructuredResponse;
 use Prism\Prism\Text\Request as TextRequest;
@@ -23,7 +23,7 @@ use Prism\Prism\ValueObjects\ProviderResponse;
 use Prism\Prism\ValueObjects\Usage;
 use Throwable;
 
-class TestProvider implements Provider
+class TestProvider extends Provider
 {
     public StructuredRequest|TextRequest|EmbeddingRequest|ImageRequest $request;
 

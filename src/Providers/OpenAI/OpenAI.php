@@ -8,7 +8,6 @@ use Generator;
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Http\Client\RequestException;
 use Prism\Prism\Concerns\InitializesClient;
-use Prism\Prism\Contracts\Provider;
 use Prism\Prism\Embeddings\Request as EmbeddingsRequest;
 use Prism\Prism\Embeddings\Response as EmbeddingsResponse;
 use Prism\Prism\Enums\Provider as ProviderName;
@@ -24,21 +23,22 @@ use Prism\Prism\Providers\OpenAI\Handlers\Images;
 use Prism\Prism\Providers\OpenAI\Handlers\Stream;
 use Prism\Prism\Providers\OpenAI\Handlers\Structured;
 use Prism\Prism\Providers\OpenAI\Handlers\Text;
+use Prism\Prism\Providers\Provider;
 use Prism\Prism\Structured\Request as StructuredRequest;
 use Prism\Prism\Structured\Response as StructuredResponse;
 use Prism\Prism\Text\Request as TextRequest;
 use Prism\Prism\Text\Response as TextResponse;
 use Throwable;
 
-readonly class OpenAI implements Provider
+class OpenAI extends Provider
 {
     use InitializesClient, ProcessesRateLimits;
 
     public function __construct(
-        #[\SensitiveParameter] public string $apiKey,
-        public string $url,
-        public ?string $organization,
-        public ?string $project,
+        #[\SensitiveParameter] readonly public string $apiKey,
+        readonly public string $url,
+        readonly public ?string $organization,
+        readonly public ?string $project,
     ) {}
 
     #[\Override]

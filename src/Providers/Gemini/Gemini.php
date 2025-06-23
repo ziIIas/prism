@@ -9,31 +9,29 @@ use Illuminate\Http\Client\PendingRequest;
 use Prism\Prism\Concerns\HandlesRequestExceptions;
 use Prism\Prism\Concerns\InitializesClient;
 use Prism\Prism\Contracts\Message;
-use Prism\Prism\Contracts\Provider;
 use Prism\Prism\Embeddings\Request as EmbeddingRequest;
 use Prism\Prism\Embeddings\Response as EmbeddingResponse;
 use Prism\Prism\Exceptions\PrismException;
-use Prism\Prism\Images\Request as ImagesRequest;
-use Prism\Prism\Images\Response as ImagesResponse;
 use Prism\Prism\Providers\Gemini\Handlers\Cache;
 use Prism\Prism\Providers\Gemini\Handlers\Embeddings;
 use Prism\Prism\Providers\Gemini\Handlers\Stream;
 use Prism\Prism\Providers\Gemini\Handlers\Structured;
 use Prism\Prism\Providers\Gemini\Handlers\Text;
 use Prism\Prism\Providers\Gemini\ValueObjects\GeminiCachedObject;
+use Prism\Prism\Providers\Provider;
 use Prism\Prism\Structured\Request as StructuredRequest;
 use Prism\Prism\Structured\Response as StructuredResponse;
 use Prism\Prism\Text\Request as TextRequest;
 use Prism\Prism\Text\Response as TextResponse;
 use Prism\Prism\ValueObjects\Messages\SystemMessage;
 
-readonly class Gemini implements Provider
+class Gemini extends Provider
 {
     use HandlesRequestExceptions, InitializesClient;
 
     public function __construct(
-        #[\SensitiveParameter] public string $apiKey,
-        public string $url,
+        #[\SensitiveParameter] readonly public string $apiKey,
+        readonly public string $url,
     ) {}
 
     #[\Override]
@@ -67,12 +65,6 @@ readonly class Gemini implements Provider
         ));
 
         return $handler->handle($request);
-    }
-
-    #[\Override]
-    public function images(ImagesRequest $request): ImagesResponse
-    {
-        throw PrismException::unsupportedProviderAction(__METHOD__, class_basename($this));
     }
 
     #[\Override]

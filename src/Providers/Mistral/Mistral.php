@@ -8,7 +8,6 @@ use Generator;
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Http\Client\RequestException;
 use Prism\Prism\Concerns\InitializesClient;
-use Prism\Prism\Contracts\Provider;
 use Prism\Prism\Embeddings\Request as EmbeddingRequest;
 use Prism\Prism\Embeddings\Response as EmbeddingResponse;
 use Prism\Prism\Enums\Provider as ProviderName;
@@ -16,8 +15,6 @@ use Prism\Prism\Exceptions\PrismException;
 use Prism\Prism\Exceptions\PrismProviderOverloadedException;
 use Prism\Prism\Exceptions\PrismRateLimitedException;
 use Prism\Prism\Exceptions\PrismRequestTooLargeException;
-use Prism\Prism\Images\Request as ImagesRequest;
-use Prism\Prism\Images\Response as ImagesResponse;
 use Prism\Prism\Providers\Mistral\Concerns\ProcessRateLimits;
 use Prism\Prism\Providers\Mistral\Handlers\Embeddings;
 use Prism\Prism\Providers\Mistral\Handlers\OCR;
@@ -25,6 +22,7 @@ use Prism\Prism\Providers\Mistral\Handlers\Stream;
 use Prism\Prism\Providers\Mistral\Handlers\Structured;
 use Prism\Prism\Providers\Mistral\Handlers\Text;
 use Prism\Prism\Providers\Mistral\ValueObjects\OCRResponse;
+use Prism\Prism\Providers\Provider;
 use Prism\Prism\Structured\Request as StructuredRequest;
 use Prism\Prism\Structured\Response as StructuredResponse;
 use Prism\Prism\Text\Request as TextRequest;
@@ -32,13 +30,13 @@ use Prism\Prism\Text\Response as TextResponse;
 use Prism\Prism\ValueObjects\Messages\Support\Document;
 use Throwable;
 
-readonly class Mistral implements Provider
+class Mistral extends Provider
 {
     use InitializesClient, ProcessRateLimits;
 
     public function __construct(
-        #[\SensitiveParameter] public string $apiKey,
-        public string $url,
+        #[\SensitiveParameter] readonly public string $apiKey,
+        readonly public string $url,
     ) {}
 
     #[\Override]
@@ -75,12 +73,6 @@ readonly class Mistral implements Provider
         ));
 
         return $handler->handle($request);
-    }
-
-    #[\Override]
-    public function images(ImagesRequest $request): ImagesResponse
-    {
-        throw PrismException::unsupportedProviderAction(__METHOD__, class_basename($this));
     }
 
     /**
