@@ -74,6 +74,20 @@ class Stream
                 continue;
             }
 
+            if ($this->hasReasoningSummaryDelta($data)) {
+                $reasoningDelta = $this->extractReasoningSummaryDelta($data);
+
+                if ($reasoningDelta !== '') {
+                    yield new Chunk(
+                        text: $reasoningDelta,
+                        finishReason: null,
+                        chunkType: ChunkType::Thinking
+                    );
+                }
+
+                continue;
+            }
+
             if ($this->hasReasoningItems($data)) {
                 $reasoningItems = $this->extractReasoningItems($data, $reasoningItems);
 
@@ -307,6 +321,28 @@ class Stream
     /**
      * @param  array<string, mixed>  $data
      */
+    protected function hasReasoningSummaryDelta(array $data): bool
+    {
+        $type = data_get($data, 'type', '');
+
+        return $type === 'response.reasoning_summary_text.delta';
+    }
+
+    /**
+     * @param  array<string, mixed>  $data
+     */
+    protected function extractReasoningSummaryDelta(array $data): string
+    {
+        if (data_get($data, 'type') === 'response.reasoning_summary_text.delta') {
+            return (string) data_get($data, 'delta', '');
+        }
+
+        return '';
+    }
+
+    /**
+     * @param  array<string, mixed>  $data
+     */
     protected function extractOutputTextDelta(array $data): string
     {
         if (data_get($data, 'type') === 'response.output_text.delta') {
@@ -336,6 +372,7 @@ class Stream
                     'tool_choice' => ToolChoiceMap::map($request->toolChoice()),
                     'previous_response_id' => $request->providerOptions('previous_response_id'),
                     'truncation' => $request->providerOptions('truncation'),
+                    'reasoning' => $request->providerOptions('reasoning'),
                 ]))
             );
     }
