@@ -19,7 +19,7 @@ class UserMessage implements Message
     use HasProviderOptions;
 
     /**
-     * @param  array<int, Text|Image|Media|Document|OpenAIFile>  $additionalContent
+     * @param  array<int, Audio|Text|Image|Media|Document|OpenAIFile>  $additionalContent
      * @param  array<string, mixed>  $additionalAttributes
      */
     public function __construct(
@@ -84,6 +84,16 @@ class UserMessage implements Message
     {
         return collect($this->additionalContent)
             ->where(fn ($part): bool => $part instanceof OpenAIFile)
+            ->toArray();
+    }
+
+    /**
+     * @return Audio[]
+     */
+    public function audios(): array
+    {
+        return collect($this->additionalContent)
+            ->where(fn ($part): bool => $part instanceof Audio)
             ->toArray();
     }
 }
