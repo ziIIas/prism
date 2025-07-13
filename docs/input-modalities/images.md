@@ -6,10 +6,6 @@ See the [provider support table](/getting-started/introduction.html#provider-sup
 
 Note however that provider support may differ by model. If you receive error messages with a provider that Prism indicates is supported, check the provider's documentation as to whether the model you are using supports images.
 
-::: tip
-For other media types like videos, audio files, and YouTube videos, see the [Media documentation](/input-modalities/media.html).
-:::
-
 ## Getting started
 
 To add an image to your prompt, use the `withPrompt` method with an `Image` value object:
